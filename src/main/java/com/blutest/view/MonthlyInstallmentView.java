@@ -21,24 +21,27 @@ public class MonthlyInstallmentView {
     
 	
 	private static void mainScreen() {
-		System.out.println("-------------------CREDIT SIMULATOR----------------");
 		System.out.println();
+		System.out.println("-------------------CREDIT SIMULATOR----------------");
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println("1. Simulasi Kredit");
 		System.out.println("2. Load Data");
 		System.out.println("3. Melihat Status Pengajuan");
+		System.out.println("4. Keluar");
+		System.out.println("----------------------------------------------------");
 	}
 	
 	public void getKendaraanView(String type, BufferedReader reader) {
 
 		int input = 1;
+		System.out.println();
 		if(type == "cmd") {
 			while((input >= 1 && input <= 4) || input < 1 || input > 4) {
 				mainScreen();
             	System.out.print("> ");input = sc.nextInt();sc.nextLine();
-            	if(input < 1 || input > 3)
+            	if(input < 1 || input > 4)
             		System.out.println("[input tidak valid]");
             	else if(input == 1)
             		loadMenu(type, reader);
@@ -74,7 +77,7 @@ public class MonthlyInstallmentView {
 	}
 	private void viewDataProcess() {
 		ArrayList<Kendaraan> arrayList = controller.getDataProcess();
-		System.out.println("====================Status Pengajuan===================");
+		System.out.println("------------------Status Pengajuan------------------");
 		if(arrayList.size() > 0) {
 			for(Kendaraan k : arrayList) {
 				System.out.println("Tipe Kendaraan  : " + k.getTipeKendaraan());

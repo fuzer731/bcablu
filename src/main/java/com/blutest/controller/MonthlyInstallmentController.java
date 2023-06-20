@@ -33,7 +33,6 @@ public class MonthlyInstallmentController {
 		kendaraanView.getKendaraanView(type, reader);
 	}
 
-	
 	public void getLoad() {
 		String endpoint = "https://www.mocky.io/v2/5d11a58d310000b23508cd62";
 		String jenisKendaraan, tipeKendaraan;
@@ -128,7 +127,8 @@ public class MonthlyInstallmentController {
 		boolean isYear = false;
 		try {
 			if (type == "cmd") {
-				input = sc.nextInt();sc.nextLine();
+				input = sc.nextInt();
+				sc.nextLine();
 				isYear = isTipeKendaraanBaru(tipeKendaraan, input);
 				if (isYear)
 					input = -1;
@@ -145,16 +145,19 @@ public class MonthlyInstallmentController {
 
 	public boolean isTipeKendaraanBaru(String tipeKendaraan, int tahunKendaraan) {
 		int yearValue = Year.now().getValue();
-		if (tipeKendaraan.equalsIgnoreCase("Baru")) {
+
+		if (tahunKendaraan < 1000 || tahunKendaraan > 9999)
+			System.out.println("[Tahun harus berupa 4 digit angka]");
+		else if(tipeKendaraan.equalsIgnoreCase("Baru")) {
 			if (tahunKendaraan >= yearValue - 1)
 				return false;
-			else if (tahunKendaraan < 1000 || tahunKendaraan > 9999) {
-				System.out.println("[Tahun harus berupa 4 digit angka]");
-			} else {
+			else {
 				System.out.println("[Untuk kendaraan baru tahun tidak boleh < " + (yearValue - 1) + "]");
 			}
-		} else
+		}
+		else {
 			return false;
+		}
 		return true;
 	}
 
@@ -162,7 +165,8 @@ public class MonthlyInstallmentController {
 		int input = -1;
 		try {
 			if (type == "cmd") {
-				input = sc.nextInt();sc.nextLine();
+				input = sc.nextInt();
+				sc.nextLine();
 				if (input < 1 || input > 1000000000) {
 					System.out.println("[Jumlah pinjaman harus di antara 1 - 1000000000]");
 				}
@@ -183,10 +187,11 @@ public class MonthlyInstallmentController {
 
 		try {
 			if (type == "cmd") {
-				input = sc.nextInt(); sc.nextLine();
-				if(input < 1 || input > 6) 
+				input = sc.nextInt();
+				sc.nextLine();
+				if (input < 1 || input > 6)
 					System.out.println("[Tenor pinjaman harus harus diantara 1 - 6 tahun]");
-				
+
 				return input;
 			}
 			return Integer.parseInt(reader.readLine());
@@ -202,11 +207,12 @@ public class MonthlyInstallmentController {
 
 		try {
 			if (type == "cmd") {
-				input = sc.nextInt();sc.nextLine();
+				input = sc.nextInt();
+				sc.nextLine();
 				if (input < totalJumlahPinjaman * 0.25) {
 					input = -1;
 					System.out.println("[Minimal jumlah DP adalah 25% / Rp. " + (totalJumlahPinjaman * 0.25) + "]");
-				} else if(input > totalJumlahPinjaman) {
+				} else if (input > totalJumlahPinjaman) {
 					input = -1;
 					System.out.println("[Jumlah DP tidak boleh melebihi jumlah pinjaman]");
 				}
@@ -219,8 +225,6 @@ public class MonthlyInstallmentController {
 			return input;
 		}
 	}
-
-
 
 	public ArrayList<Kendaraan> getDataProcess() {
 		ArrayList<Kendaraan> arrayList = DB.getInstance().getKendaraanList();
